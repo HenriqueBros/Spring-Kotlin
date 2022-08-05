@@ -46,6 +46,7 @@ class MathController {
 
     // Multiplicação
 
+    @RequestMapping(value = ["/multi/{numberOne}/{numberTwo}"])
     fun multi(@PathVariable(value="numberOne") numberOne: String?,
              @PathVariable(value="numberTwo") numberTwo: String?
     ) : Double {
