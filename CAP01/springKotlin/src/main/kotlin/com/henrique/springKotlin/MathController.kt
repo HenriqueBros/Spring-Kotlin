@@ -1,5 +1,6 @@
 package com.henrique.springKotlin
 
+import com.henrique.springKotlin.exception.UnsupportedMathOperationException
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -15,7 +16,7 @@ class MathController {
             @PathVariable(value="numberTwo") numberTwo: String?
     ): Double {
         if (!isNumeric(numberOne) || !isNumeric(numberTwo))
-            throw Exception()
+            throw UnsupportedMathOperationException("Please set a numeric value")
         return convertToDouble(numberOne) + convertToDouble(numberTwo)
     }
 
@@ -30,5 +31,26 @@ class MathController {
         if (strNumber.isNullOrBlank()) return false;
         val number = strNumber.replace(",".toRegex(), ".")
         return number.matches("""[-+]?[0-9]*\.?[0-9]+""".toRegex())
+    }
+
+    // Subtração
+
+    @RequestMapping(value = ["/sub/{numberOne}/{numberTwo}"])
+    fun sub(@PathVariable(value="numberOne") numberOne: String?,
+             @PathVariable(value="numberTwo") numberTwo: String?
+    ): Double {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo))
+            throw UnsupportedMathOperationException("Please set a numeric value")
+        return convertToDouble(numberOne) - convertToDouble(numberTwo)
+    }
+
+    // Multiplicação
+
+    fun multi(@PathVariable(value="numberOne") numberOne: String?,
+             @PathVariable(value="numberTwo") numberTwo: String?
+    ) : Double {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo))
+            throw UnsupportedMathOperationException("Please set a numeric value")
+        return convertToDouble(numberOne) * convertToDouble(numberTwo)
     }
 }

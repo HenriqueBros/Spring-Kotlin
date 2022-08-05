@@ -1,4 +1,10 @@
 package com.henrique.springKotlin.exception
 
-class ExceptionResponse {
-}
+import java.util.*
+
+class ExceptionResponse (
+    val timestamp: Date,
+    val message: String?,
+    val details: String
+
+)
